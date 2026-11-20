@@ -220,6 +220,107 @@ router.get('/', requireAuth, (req: AuthRequest, res: Response) => {
   }
 });
 
+// GET /api/enquiries/export/csv - Export Leads to CSV
+router.get('/export/csv', requireAuth, (req: AuthRequest, res: Response) => {
+  try {
+    const leads = db.prepare(`
+      SELECT e.enquiry_id, e.student_name, e.phone, e.email, e.current_class,
+             c.title as course, b.name as branch, e.contact_method, e.status,
+             e.source, cn.name as counsellor, e.next_followup_date, e.created_at
+      FROM enquiries e
+      LEFT JOIN courses c ON e.course_id = c.id
+      LEFT JOIN branches b ON e.branch_id = b.id
+      LEFT JOIN counsellors cn ON e.counsellor_id = cn.id
+      ORDER BY e.created_at DESC
+    `).all() as any[];
+
+    const headers = [
+      'Enquiry ID',
+      'Student Name',
+      'Phone',
+      'Email',
+      'Class/Qualification',
+      'Course',
+      'Branch',
+      'Preferred Contact',
+      'Status',
+      'Source',
+      'Counsellor',
+      'Next Follow-up',
+      'Submission Date'
+    ];
+
+    const escapeCsv = (val: any) => {
+      if (val === null || val === undefined) return '""';
+      const str = String(val).replace(/"/g, '""');
+      return `"${str}"`;
+    };
+
+    let csvContent = headers.join(',') + '\n';
+    for (const row of leads) {
+      csvContent += [
+        escapeCsv(row.enquiry_id),
+        escapeCsv(row.student_name),
+        escapeCsv(row.phone),
+        escapeCsv(row.email),
+        escapeCsv(row.current_class),
+        escapeCsv(row.course),
+        escapeCsv(row.branch),
+        escapeCsv(row.contact_method),
+        escapeCsv(row.status),
+        escapeCsv(row.source),
+        escapeCsv(row.counsellor),
+        escapeCsv(row.next_followup_date),
+        escapeCsv(row.created_at)
+      ].join(',') + '\n';
+    }
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename="ideal_career_institute_leads.csv"');
+    res.send(csvContent);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/enquiries/counsellors - List all active counsellors
+router.get('/counsellors', requireAuth, (req: AuthRequest, res: Response) => {
+  try {
+    const counsellors = db.prepare('SELECT * FROM counsellors WHERE is_active = 1').all();
+    res.json({ counsellors });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/enquiries/followups - List all scheduled follow-ups
+router.get('/followups', requireAuth, (req: AuthRequest, res: Response) => {
+  try {
+    const followUps = db.prepare(`
+      SELECT f.*, e.student_name, e.phone, e.enquiry_id as lead_enquiry_id,
+             c.title as course_title, cn.name as counsellor_name
+      FROM follow_ups f
+      JOIN enquiries e ON f.enquiry_id = e.id
+      LEFT JOIN courses c ON e.course_id = c.id
+      LEFT JOIN counsellors cn ON f.counsellor_id = cn.id
+      ORDER BY f.scheduled_date ASC
+    `).all();
+    res.json({ followUps });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/enquiries/audit - List system audit logs
+router.get('/audit', requireAuth, (req: AuthRequest, res: Response) => {
+  try {
+    const audit_logs = db.prepare('SELECT * FROM audit_logs ORDER BY timestamp DESC LIMIT 100').all();
+    res.json({ audit_logs });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // GET /api/enquiries/:id - Single Lead Details with Notes & Follow-ups
 router.get('/:id', requireAuth, (req: AuthRequest, res: Response) => {
   try {
@@ -392,69 +493,6 @@ router.post('/:id/followups', requireAuth, (req: AuthRequest, res: Response) => 
     `).run(scheduled_date, lead.id);
 
     res.status(201).json({ message: 'Follow-up scheduled successfully' });
-  } catch (err: any) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// GET /api/enquiries/export/csv - Export Leads to CSV
-router.get('/export/csv', requireAuth, (req: AuthRequest, res: Response) => {
-  try {
-    const leads = db.prepare(`
-      SELECT e.enquiry_id, e.student_name, e.phone, e.email, e.current_class,
-             c.title as course, b.name as branch, e.contact_method, e.status,
-             e.source, cn.name as counsellor, e.next_followup_date, e.created_at
-      FROM enquiries e
-      LEFT JOIN courses c ON e.course_id = c.id
-      LEFT JOIN branches b ON e.branch_id = b.id
-      LEFT JOIN counsellors cn ON e.counsellor_id = cn.id
-      ORDER BY e.created_at DESC
-    `).all() as any[];
-
-    const headers = [
-      'Enquiry ID',
-      'Student Name',
-      'Phone',
-      'Email',
-      'Class/Qualification',
-      'Course',
-      'Branch',
-      'Preferred Contact',
-      'Status',
-      'Source',
-      'Counsellor',
-      'Next Follow-up',
-      'Submission Date'
-    ];
-
-    const escapeCsv = (val: any) => {
-      if (val === null || val === undefined) return '""';
-      const str = String(val).replace(/"/g, '""');
-      return `"${str}"`;
-    };
-
-    let csvContent = headers.join(',') + '\n';
-    for (const row of leads) {
-      csvContent += [
-        escapeCsv(row.enquiry_id),
-        escapeCsv(row.student_name),
-        escapeCsv(row.phone),
-        escapeCsv(row.email),
-        escapeCsv(row.current_class),
-        escapeCsv(row.course),
-        escapeCsv(row.branch),
-        escapeCsv(row.contact_method),
-        escapeCsv(row.status),
-        escapeCsv(row.source),
-        escapeCsv(row.counsellor),
-        escapeCsv(row.next_followup_date),
-        escapeCsv(row.created_at)
-      ].join(',') + '\n';
-    }
-
-    res.setHeader('Content-Type', 'text/csv');
-    res.setHeader('Content-Disposition', 'attachment; filename="ideal_career_institute_leads.csv"');
-    res.send(csvContent);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }

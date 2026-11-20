@@ -52,7 +52,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onBackToWebsite }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 flex flex-col justify-center items-center p-4">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-700/50">
-        
+
         {/* Top Header */}
         <div className="bg-slate-900 text-white p-8 text-center border-b border-slate-800 relative">
           <div className="w-16 h-16 rounded-2xl bg-white p-2 mx-auto mb-4 border border-slate-700 flex items-center justify-center shadow-md">

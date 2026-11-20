@@ -18,8 +18,8 @@ router.get('/', (req: Request, res: Response) => {
   }
 });
 
-// PUT /api/settings - Admin update settings
-router.put('/', requireAuth, (req: AuthRequest, res: Response) => {
+// PUT & POST /api/settings - Admin update settings
+const handleUpdateSettings = (req: AuthRequest, res: Response) => {
   const updates: Record<string, string> = req.body;
   if (!updates || typeof updates !== 'object') {
     return res.status(400).json({ error: 'Settings object is required' });
@@ -45,7 +45,10 @@ router.put('/', requireAuth, (req: AuthRequest, res: Response) => {
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
-});
+};
+
+router.put('/', requireAuth, handleUpdateSettings);
+router.post('/', requireAuth, handleUpdateSettings);
 
 // GET /api/settings/notifications - Admin notifications
 router.get('/notifications', requireAuth, (req: AuthRequest, res: Response) => {
