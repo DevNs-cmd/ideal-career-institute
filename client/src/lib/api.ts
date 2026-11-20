@@ -2,7 +2,21 @@
  * API Client for Ideal Career Institute
  */
 
-const API_BASE = '/api';
+function getApiBase(): string {
+  if (typeof window !== 'undefined') {
+    // If accessing on port 5000 directly
+    if (window.location.port === '5000') {
+      return '/api';
+    }
+    // If accessing via Vite dev server on localhost (e.g. 5173, 3000)
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return `http://${window.location.hostname}:5000/api`;
+    }
+  }
+  return '/api';
+}
+
+const API_BASE = getApiBase();
 
 export interface Course {
   id: number;
@@ -141,56 +155,83 @@ function getAuthHeader(): Record<string, string> {
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
+async function safeFetchJson(url: string, options: RequestInit = {}): Promise<any> {
+  try {
+    const res = await fetch(url, options);
+    const contentType = res.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || data.message || `Request failed with status ${res.status}`);
+      }
+      return data;
+    } else {
+      const text = await res.text();
+      if (!res.ok) {
+        throw new Error(`Server returned status ${res.status}`);
+      }
+      return text;
+    }
+  } catch (err: any) {
+    // If relative /api failed due to dev server port mismatch, fallback to explicit localhost:5000
+    if (url.startsWith('/api') && typeof window !== 'undefined' && window.location.port !== '5000') {
+      const fallbackUrl = `http://${window.location.hostname}:5000${url}`;
+      const res = await fetch(fallbackUrl, options);
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || data.message || 'Request failed');
+      }
+      return data;
+    }
+    throw err;
+  }
+}
+
 export const api = {
   // Public
   async getSettings(): Promise<Record<string, string>> {
-    const res = await fetch(`${API_BASE}/settings`);
-    const data = await res.json();
+    const data = await safeFetchJson(`${API_BASE}/settings`);
     return data.settings || {};
   },
 
   async getCourses(category?: string): Promise<Course[]> {
     const url = category ? `${API_BASE}/courses?category=${encodeURIComponent(category)}` : `${API_BASE}/courses`;
-    const res = await fetch(url);
-    const data = await res.json();
+    const data = await safeFetchJson(url);
     return data.courses || [];
   },
 
   async getCourseBySlug(slug: string): Promise<Course | null> {
-    const res = await fetch(`${API_BASE}/courses/${slug}`);
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.course || null;
+    try {
+      const data = await safeFetchJson(`${API_BASE}/courses/${slug}`);
+      return data.course || null;
+    } catch {
+      return null;
+    }
   },
 
   async getFaculty(): Promise<Faculty[]> {
-    const res = await fetch(`${API_BASE}/faculty`);
-    const data = await res.json();
+    const data = await safeFetchJson(`${API_BASE}/faculty`);
     return data.faculty || [];
   },
 
   async getToppers(): Promise<Topper[]> {
-    const res = await fetch(`${API_BASE}/toppers`);
-    const data = await res.json();
+    const data = await safeFetchJson(`${API_BASE}/toppers`);
     return data.toppers || [];
   },
 
   async getBranches(): Promise<Branch[]> {
-    const res = await fetch(`${API_BASE}/branches`);
-    const data = await res.json();
+    const data = await safeFetchJson(`${API_BASE}/branches`);
     return data.branches || [];
   },
 
   async getTestimonials(): Promise<Testimonial[]> {
-    const res = await fetch(`${API_BASE}/testimonials`);
-    const data = await res.json();
+    const data = await safeFetchJson(`${API_BASE}/testimonials`);
     return data.testimonials || [];
   },
 
   async getGallery(category?: string): Promise<GalleryItem[]> {
     const url = category ? `${API_BASE}/gallery?category=${encodeURIComponent(category)}` : `${API_BASE}/gallery`;
-    const res = await fetch(url);
-    const data = await res.json();
+    const data = await safeFetchJson(url);
     return data.gallery || [];
   },
 
@@ -204,36 +245,26 @@ export const api = {
     contact_method?: string;
     message?: string;
   }): Promise<{ success: boolean; enquiry_id: string; message: string; whatsapp_link: string }> {
-    const res = await fetch(`${API_BASE}/enquiries`, {
+    return safeFetchJson(`${API_BASE}/enquiries`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
-    const data = await res.json();
-    if (!res.ok) {
-      throw new Error(data.error || 'Submission failed');
-    }
-    return data;
   },
 
   // Auth
   async login(username: string, password: string) {
-    const res = await fetch(`${API_BASE}/auth/login`, {
+    return safeFetchJson(`${API_BASE}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
     });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Login failed');
-    return data;
   },
 
   async getMe() {
-    const res = await fetch(`${API_BASE}/auth/me`, {
+    return safeFetchJson(`${API_BASE}/auth/me`, {
       headers: getAuthHeader()
     });
-    if (!res.ok) throw new Error('Not authenticated');
-    return res.json();
   },
 
   // Admin Leads CRM
@@ -242,59 +273,47 @@ export const api = {
     for (const [k, v] of Object.entries(filters)) {
       if (v !== undefined && v !== '' && v !== null) query.append(k, String(v));
     }
-    const res = await fetch(`${API_BASE}/enquiries?${query.toString()}`, {
+    return safeFetchJson(`${API_BASE}/enquiries?${query.toString()}`, {
       headers: getAuthHeader()
     });
-    if (!res.ok) throw new Error('Failed to load leads');
-    return res.json();
   },
 
   async getLeadDetails(id: number | string): Promise<{ lead: Lead; notes: LeadNote[]; followUps: FollowUp[] }> {
-    const res = await fetch(`${API_BASE}/enquiries/${id}`, {
+    return safeFetchJson(`${API_BASE}/enquiries/${id}`, {
       headers: getAuthHeader()
     });
-    if (!res.ok) throw new Error('Failed to load lead details');
-    return res.json();
   },
 
   async updateLeadStatus(id: number, status: string, note?: string) {
-    const res = await fetch(`${API_BASE}/enquiries/${id}/status`, {
+    return safeFetchJson(`${API_BASE}/enquiries/${id}/status`, {
       method: 'PATCH',
       headers: { ...getAuthHeader(), 'Content-Type': 'application/json' },
       body: JSON.stringify({ status, note })
     });
-    if (!res.ok) throw new Error('Failed to update status');
-    return res.json();
   },
 
   async assignCounsellor(id: number, counsellor_id: number | null) {
-    const res = await fetch(`${API_BASE}/enquiries/${id}/assign`, {
+    return safeFetchJson(`${API_BASE}/enquiries/${id}/assign`, {
       method: 'PATCH',
       headers: { ...getAuthHeader(), 'Content-Type': 'application/json' },
       body: JSON.stringify({ counsellor_id })
     });
-    if (!res.ok) throw new Error('Failed to assign counsellor');
-    return res.json();
   },
 
   async addLeadNote(id: number, note: string) {
-    const res = await fetch(`${API_BASE}/enquiries/${id}/notes`, {
+    return safeFetchJson(`${API_BASE}/enquiries/${id}/notes`, {
       method: 'POST',
       headers: { ...getAuthHeader(), 'Content-Type': 'application/json' },
       body: JSON.stringify({ note })
     });
-    if (!res.ok) throw new Error('Failed to add note');
-    return res.json();
   },
 
   async scheduleFollowUp(id: number, scheduled_date: string, notes?: string, counsellor_id?: number) {
-    const res = await fetch(`${API_BASE}/enquiries/${id}/followups`, {
+    return safeFetchJson(`${API_BASE}/enquiries/${id}/followups`, {
       method: 'POST',
       headers: { ...getAuthHeader(), 'Content-Type': 'application/json' },
       body: JSON.stringify({ scheduled_date, notes, counsellor_id })
     });
-    if (!res.ok) throw new Error('Failed to schedule follow-up');
-    return res.json();
   },
 
   // Admin Analytics
@@ -304,36 +323,30 @@ export const api = {
     if (endDate) params.append('end_date', endDate);
     params.append('include_demo', includeDemo ? 'true' : 'false');
 
-    const res = await fetch(`${API_BASE}/analytics?${params.toString()}`, {
+    return safeFetchJson(`${API_BASE}/analytics?${params.toString()}`, {
       headers: getAuthHeader()
     });
-    if (!res.ok) throw new Error('Failed to load analytics');
-    return res.json();
   },
 
   // Admin CMS & Settings
   async updateSettings(settings: Record<string, string>) {
-    const res = await fetch(`${API_BASE}/settings`, {
+    return safeFetchJson(`${API_BASE}/settings`, {
       method: 'PUT',
       headers: { ...getAuthHeader(), 'Content-Type': 'application/json' },
       body: JSON.stringify(settings)
     });
-    if (!res.ok) throw new Error('Failed to update settings');
-    return res.json();
   },
 
   async getAuditLogs() {
-    const res = await fetch(`${API_BASE}/settings/audit-logs`, {
+    return safeFetchJson(`${API_BASE}/settings/audit-logs`, {
       headers: getAuthHeader()
     });
-    return res.json();
   },
 
   async getNotifications() {
-    const res = await fetch(`${API_BASE}/settings/notifications`, {
+    return safeFetchJson(`${API_BASE}/settings/notifications`, {
       headers: getAuthHeader()
     });
-    return res.json();
   },
 
   async markNotificationsRead() {
@@ -345,18 +358,16 @@ export const api = {
 
   // Demo Journey
   async seedDemoData() {
-    const res = await fetch(`${API_BASE}/demo/seed`, {
+    return safeFetchJson(`${API_BASE}/demo/seed`, {
       method: 'POST',
       headers: getAuthHeader()
     });
-    return res.json();
   },
 
   async resetDemoData() {
-    const res = await fetch(`${API_BASE}/demo/reset`, {
+    return safeFetchJson(`${API_BASE}/demo/reset`, {
       method: 'POST',
       headers: getAuthHeader()
     });
-    return res.json();
   }
 };

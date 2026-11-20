@@ -21,37 +21,39 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<AdminUser | null>(null);
   const [token, setToken] = useState<string | null>(() => localStorage.getItem('ici_admin_token'));
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [user, setUser] = useState<AdminUser | null>(() => {
+    try {
+      const savedUser = localStorage.getItem('ici_admin_user');
+      return savedUser ? JSON.parse(savedUser) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     async function verifyAuth() {
       const storedToken = localStorage.getItem('ici_admin_token');
       if (!storedToken) {
-        setIsLoading(false);
         return;
       }
 
       try {
         const res = await api.getMe();
-        if (res.user) {
-          setUser({
+        if (res && res.user) {
+          const freshUser = {
             id: res.user.id,
             username: res.user.username,
             email: res.user.email,
-            fullName: res.user.full_name,
-            role: res.user.role
-          });
-          setToken(storedToken);
-        } else {
-          logout();
+            fullName: res.user.fullName || res.user.full_name || 'Administrator',
+            role: res.user.role || 'superadmin'
+          };
+          setUser(freshUser);
+          localStorage.setItem('ici_admin_user', JSON.stringify(freshUser));
         }
       } catch (err) {
-        console.error('Session expired or invalid:', err);
-        logout();
-      } finally {
-        setIsLoading(false);
+        console.warn('Background auth verification failed:', err);
       }
     }
 
@@ -60,12 +62,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = (newToken: string, newUser: AdminUser) => {
     localStorage.setItem('ici_admin_token', newToken);
+    localStorage.setItem('ici_admin_user', JSON.stringify(newUser));
     setToken(newToken);
     setUser(newUser);
   };
 
   const logout = () => {
     localStorage.removeItem('ici_admin_token');
+    localStorage.removeItem('ici_admin_user');
     setToken(null);
     setUser(null);
   };
