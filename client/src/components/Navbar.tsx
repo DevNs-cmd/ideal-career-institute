@@ -44,23 +44,23 @@ export const Navbar: React.FC<NavbarProps> = ({
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-md py-2.5 border-b border-slate-100'
-          : 'bg-white py-4 border-b border-slate-100'
+          ? 'ios-glass py-2 shadow-sm'
+          : 'bg-white/80 backdrop-blur-xl py-3 border-b border-white/60'
       }`}
     >
       {/* Top Banner / Announcement */}
-      <div className="hidden lg:block bg-slate-900 text-white text-xs py-1.5 px-6">
+      <div className="hidden lg:block bg-slate-900/95 backdrop-blur-md text-white text-xs py-1.5 px-6 border-b border-white/10">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1.5 text-amber-400 font-medium">
+            <span className="flex items-center gap-1.5 text-amber-400 font-semibold">
               <Sparkles className="w-3.5 h-3.5" /> Excellence in Education Since 1999
             </span>
-            <span className="text-slate-400">|</span>
+            <span className="text-white/20">|</span>
             <span className="text-slate-300">New Delhi Campus: Madangir (Basement DDA Flats)</span>
           </div>
           <div className="flex items-center gap-4 text-slate-300">
             <span>Admissions Open for School (1-12) & Competitive Batches</span>
-            <span className="text-slate-500">•</span>
+            <span className="text-white/20">•</span>
             <button
               onClick={onOpenAdmin}
               className="hover:text-amber-300 transition-colors cursor-pointer text-xs font-semibold underline decoration-slate-600"
@@ -78,7 +78,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => handleLinkClick('home')}
             className="flex items-center gap-3 text-left focus:outline-none group cursor-pointer"
           >
-            <div className="relative w-12 h-12 flex-shrink-0 bg-white rounded-lg p-1 border border-slate-200 shadow-xs flex items-center justify-center">
+            <div className="relative w-12 h-12 flex-shrink-0 ios-glass rounded-2xl p-1.5 border border-white/90 shadow-xs flex items-center justify-center">
               <img
                 src="/assets/logo.png"
                 alt="Ideal Career Institute Logo"
@@ -89,25 +89,25 @@ export const Navbar: React.FC<NavbarProps> = ({
               />
             </div>
             <div>
-              <span className="text-lg sm:text-xl font-bold tracking-tight text-slate-900 leading-tight block font-display">
+              <span className="text-lg sm:text-xl font-black tracking-tight text-slate-900 leading-tight block font-display">
                 IDEAL CAREER <span className="text-red-600">INSTITUTE</span>
               </span>
-              <span className="text-[11px] font-medium text-slate-500 uppercase tracking-widest block">
+              <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest block">
                 Igniting Minds • Since 1999
               </span>
             </div>
           </button>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden xl:flex items-center gap-1">
+          <div className="hidden xl:flex items-center gap-1.5 p-1 rounded-full ios-glass border border-white/70 shadow-xs">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => handleLinkClick(link.id)}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                   activeSection === link.id
-                    ? 'text-red-600 font-semibold bg-red-50/60'
-                    : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+                    ? 'bg-slate-900 text-white shadow-xs'
+                    : 'text-slate-700 hover:text-slate-900 hover:bg-white/80'
                 }`}
               >
                 {link.label}
@@ -120,19 +120,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Call Now Button */}
             <a
               href="tel:+917011667297"
-              className="inline-flex items-center gap-2 px-3.5 py-2 text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors border border-slate-200"
+              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-slate-800 ios-glass-pill hover:bg-white rounded-full transition-all border border-white/80 shadow-xs active:scale-95"
             >
-              <Phone className="w-4 h-4 text-red-600" />
+              <Phone className="w-3.5 h-3.5 text-red-600" />
               <span>+91 7011667297</span>
             </a>
 
             {/* Admission Enquiry Primary CTA */}
             <button
               onClick={() => onOpenEnquiry()}
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm hover:shadow transition-all transform hover:-translate-y-0.5 cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2 text-xs font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 rounded-full shadow-md shadow-red-600/20 transition-all transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
             >
               <span>Student Enquiry</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
 
@@ -140,45 +140,45 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex md:hidden items-center gap-2">
             <a
               href="tel:+917011667297"
-              className="p-2 text-red-600 bg-red-50 rounded-lg"
+              className="p-2 text-red-600 ios-glass rounded-full border border-white/80 shadow-xs"
               title="Call Institute"
             >
-              <Phone className="w-5 h-5" />
+              <Phone className="w-4 h-4" />
             </a>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none"
+              className="p-2 rounded-full text-slate-700 ios-glass border border-white/80 focus:outline-none"
               aria-label="Toggle navigation menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5 text-slate-900" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="xl:hidden border-t border-slate-100 bg-white py-4 px-2 space-y-1 shadow-lg rounded-b-2xl animate-in slide-in-from-top-2 duration-200">
+          <div className="xl:hidden ios-glass-card my-3 p-4 rounded-3xl border border-white/80 shadow-2xl animate-in slide-in-from-top-2 duration-200 space-y-1">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => handleLinkClick(link.id)}
-                className={`w-full text-left px-4 py-2.5 rounded-lg text-base font-medium transition-colors ${
+                className={`w-full text-left px-4 py-2.5 rounded-2xl text-sm font-bold transition-all ${
                   activeSection === link.id
-                    ? 'text-red-600 font-semibold bg-red-50'
-                    : 'text-slate-700 hover:bg-slate-50'
+                    ? 'bg-slate-900 text-white shadow-xs'
+                    : 'text-slate-700 hover:bg-white/80'
                 }`}
               >
                 {link.label}
               </button>
             ))}
 
-            <div className="pt-4 border-t border-slate-100 flex flex-col gap-2 px-2">
+            <div className="pt-3 border-t border-slate-200/60 flex flex-col gap-2 px-1">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onOpenEnquiry();
                 }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 text-base font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-xs"
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 rounded-2xl shadow-md shadow-red-600/20 active:scale-95"
               >
                 <span>Enquire for Admission</span>
                 <ArrowRight className="w-4 h-4" />
