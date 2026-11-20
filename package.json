@@ -1,0 +1,23 @@
+{
+  "name": "ideal-career-institute",
+  "version": "2.0.0",
+  "description": "Complete Website Transformation and Student Admission Management CRM Platform for Ideal Career Institute",
+  "scripts": {
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build:client": "cd client && npm run build",
+    "build:server": "cd server && npm run build",
+    "build": "cd client && npm run build",
+    "start": "cd server && npm start",
+    "seed": "cd server && npm run seed"
+  },
+  "keywords": [
+    "education",
+    "institute",
+    "admission-crm",
+    "lead-management",
+    "delhi-coaching"
+  ],
+  "author": "AlgoForce AI",
+  "license": "ISC"
+}
