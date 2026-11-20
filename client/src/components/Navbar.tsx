@@ -76,9 +76,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Logo & Institute Name */}
           <button
             onClick={() => handleLinkClick('home')}
-            className="flex items-center gap-3 text-left focus:outline-none group cursor-pointer"
+            className="flex items-center gap-2 sm:gap-3 text-left focus:outline-none group cursor-pointer min-w-0"
           >
-            <div className="relative w-12 h-12 flex-shrink-0 ios-glass rounded-2xl p-1.5 border border-white/90 shadow-xs flex items-center justify-center">
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 ios-glass rounded-xl sm:rounded-2xl p-1 sm:p-1.5 border border-white/90 shadow-xs flex items-center justify-center">
               <img
                 src="/assets/logo.png"
                 alt="Ideal Career Institute Logo"
@@ -88,11 +88,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }}
               />
             </div>
-            <div>
-              <span className="text-lg sm:text-xl font-black tracking-tight text-slate-900 leading-tight block font-display">
+            <div className="min-w-0">
+              <span className="text-sm sm:text-lg md:text-xl font-black tracking-tight text-slate-900 leading-tight block font-display truncate">
                 IDEAL CAREER <span className="text-red-600">INSTITUTE</span>
               </span>
-              <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest block">
+              <span className="text-[9px] sm:text-[11px] font-semibold text-slate-500 uppercase tracking-widest block truncate">
                 Igniting Minds • Since 1999
               </span>
             </div>

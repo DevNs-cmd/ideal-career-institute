@@ -70,26 +70,26 @@ export const CredibilityStats: React.FC<StatsProps> = ({ stats }) => {
   ];
 
   return (
-    <section ref={sectionRef} className="py-12 bg-white border-y border-slate-200/80 shadow-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+    <section ref={sectionRef} className="py-10 sm:py-12 bg-white border-y border-slate-200/80 shadow-xs">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
           {statItems.map((item, idx) => {
             const Icon = item.icon;
             return (
               <div
                 key={idx}
-                className="flex flex-col items-center sm:items-start text-center sm:text-left p-4 rounded-xl hover:bg-slate-50 transition-colors"
+                className="flex flex-col items-center sm:items-start text-center sm:text-left p-3 sm:p-4 rounded-2xl hover:bg-slate-50 transition-colors"
               >
-                <div className={`w-12 h-12 rounded-xl ${item.bg} ${item.color} flex items-center justify-center mb-3 shadow-xs`}>
-                  <Icon className="w-6 h-6" />
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl ${item.bg} ${item.color} flex items-center justify-center mb-2.5 shadow-xs`}>
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <div className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-display">
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight font-display">
                   {item.value}{item.suffix || ''}
                 </div>
-                <div className="text-sm font-bold text-slate-800 mt-1">
+                <div className="text-xs sm:text-sm font-bold text-slate-800 mt-1">
                   {item.label}
                 </div>
-                <div className="text-xs text-slate-500 mt-0.5 leading-snug">
+                <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5 leading-snug">
                   {item.subtext}
                 </div>
               </div>

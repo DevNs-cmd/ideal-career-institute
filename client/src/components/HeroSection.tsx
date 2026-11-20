@@ -89,18 +89,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <section
       id="home"
-      className="relative pt-28 pb-16 md:pt-36 md:pb-28 bg-gradient-to-b from-slate-100/80 via-white to-slate-100/60 overflow-hidden"
+      className="relative pt-24 pb-12 sm:pt-28 sm:pb-16 md:pt-36 md:pb-28 bg-gradient-to-b from-slate-100/80 via-white to-slate-100/60 overflow-hidden w-full max-w-full"
     >
       {/* ========================================================================= */}
       {/* 1. BACKGROUND MOVING PHOTO WATERMARK REEL (Frosted Depth Under Glass)     */}
       {/* ========================================================================= */}
-      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-[0.16] sm:opacity-[0.20]">
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden max-w-full w-full opacity-[0.14] sm:opacity-[0.20]">
         {/* Row 1: Drifting Left */}
-        <div className="absolute top-6 left-0 flex animate-marquee-left gap-6 -rotate-2 transform scale-105">
+        <div className="absolute top-6 left-0 flex animate-marquee-left gap-4 sm:gap-6 -rotate-2 transform scale-105">
           {[...marqueePhotosRow1, ...marqueePhotosRow1].map((src, i) => (
             <div
               key={`row1-${i}`}
-              className="w-60 sm:w-80 h-36 sm:h-48 rounded-3xl overflow-hidden flex-shrink-0 shadow-sm border border-white/60 bg-slate-300"
+              className="w-48 sm:w-80 h-32 sm:h-48 rounded-2xl sm:rounded-3xl overflow-hidden flex-shrink-0 shadow-sm border border-white/60 bg-slate-300"
             >
               <img
                 src={src}
@@ -113,11 +113,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         </div>
 
         {/* Row 2: Drifting Right */}
-        <div className="absolute -bottom-8 left-0 flex animate-marquee-right gap-6 -rotate-2 transform scale-105">
+        <div className="absolute -bottom-8 left-0 flex animate-marquee-right gap-4 sm:gap-6 -rotate-2 transform scale-105">
           {[...marqueePhotosRow2, ...marqueePhotosRow2].map((src, i) => (
             <div
               key={`row2-${i}`}
-              className="w-60 sm:w-80 h-36 sm:h-48 rounded-3xl overflow-hidden flex-shrink-0 shadow-sm border border-white/60 bg-slate-300"
+              className="w-48 sm:w-80 h-32 sm:h-48 rounded-2xl sm:rounded-3xl overflow-hidden flex-shrink-0 shadow-sm border border-white/60 bg-slate-300"
             >
               <img
                 src={src}
@@ -135,29 +135,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       </div>
 
       {/* Decorative iOS Ambient Glow Spheres */}
-      <div className="absolute top-1/6 right-16 w-[450px] h-[450px] bg-rose-200/35 rounded-full blur-[110px] pointer-events-none" />
-      <div className="absolute bottom-12 left-10 w-[400px] h-[400px] bg-blue-200/35 rounded-full blur-[110px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/3 w-[300px] h-[300px] bg-amber-100/30 rounded-full blur-[90px] pointer-events-none" />
+      <div className="absolute top-1/6 right-4 sm:right-16 w-72 sm:w-[450px] h-72 sm:h-[450px] bg-rose-200/35 rounded-full blur-[80px] sm:blur-[110px] pointer-events-none" />
+      <div className="absolute bottom-12 left-4 sm:left-10 w-64 sm:w-[400px] h-64 sm:h-[400px] bg-blue-200/35 rounded-full blur-[80px] sm:blur-[110px] pointer-events-none" />
 
       {/* ========================================================================= */}
       {/* 2. MAIN HERO CONTENT CONTAINER                                            */}
       {/* ========================================================================= */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 relative z-10 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           
           {/* Left Column: Heading & Value Proposition */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left w-full">
             
             {/* iOS Dynamic Island Status Capsule */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full ios-glass-dark text-white text-xs sm:text-sm font-semibold tracking-wide shadow-lg border border-white/20">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse shadow-sm shadow-red-500" />
-              <span>Excellence in Education Since 1999</span>
-              <span className="text-white/30">•</span>
-              <span className="text-amber-300 font-bold">25+ Years Legacy</span>
+            <div className="inline-flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-1.5 rounded-full ios-glass-dark text-white text-[11px] sm:text-xs md:text-sm font-semibold tracking-wide shadow-lg border border-white/20 max-w-full">
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-sm shadow-red-500 flex-shrink-0" />
+              <span className="truncate">Excellence in Education Since 1999</span>
+              <span className="text-white/30 hidden xs:inline">•</span>
+              <span className="text-amber-300 font-bold hidden xs:inline">25+ Years Legacy</span>
             </div>
 
             {/* Editorial Main Heading with iOS Typography Weight */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.10]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.14] sm:leading-[1.10] break-words">
               Igniting Minds, <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-rose-600 to-red-700">
                 Illuminating Futures.
@@ -165,15 +164,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </h1>
 
             {/* Authentic Institutional Supporting Text */}
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
+            <p className="text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
               At Ideal Career Institute, we believe in igniting young minds with knowledge and skills, illuminating the path to a bright future. With expert faculty and comprehensive courses, we empower students to excel in commerce, science, humanities, and all entrance exams.
             </p>
 
             {/* iOS Glassmorphism Action Buttons */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 sm:gap-4 w-full sm:w-auto">
               <button
                 onClick={onExploreCourses}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-2xl font-bold text-white ios-glass-dark hover:bg-slate-900 shadow-xl border border-white/20 ios-glass-interactive cursor-pointer text-base"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-2xl font-bold text-white ios-glass-dark hover:bg-slate-900 shadow-xl border border-white/20 ios-glass-interactive cursor-pointer text-sm sm:text-base"
               >
                 <span>Explore Our Courses</span>
                 <BookOpen className="w-4 h-4 text-amber-400" />
@@ -181,7 +180,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
               <button
                 onClick={() => onOpenEnquiry()}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-2xl font-bold text-slate-900 ios-glass-pill hover:bg-white shadow-md border border-white/90 ios-glass-interactive cursor-pointer text-base"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-2xl font-bold text-slate-900 ios-glass-pill hover:bg-white shadow-md border border-white/90 ios-glass-interactive cursor-pointer text-sm sm:text-base"
               >
                 <span>Enquire for Admission</span>
                 <ArrowRight className="w-4 h-4 text-red-600" />
@@ -189,34 +188,34 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
 
             {/* iOS Glass Feature Widgets (3 Frosted Cards) */}
-            <div className="pt-6 grid grid-cols-1 sm:grid-cols-3 gap-3.5 max-w-2xl mx-auto lg:mx-0">
-              <div className="ios-glass-pill rounded-2xl p-3 sm:p-3.5 flex items-center gap-3 border border-white/80 shadow-xs hover:shadow-md transition-all hover:scale-[1.02]">
-                <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 shadow-xs">
-                  <CheckCircle2 className="w-5 h-5" />
+            <div className="pt-4 sm:pt-6 grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3.5 max-w-2xl mx-auto lg:mx-0 w-full">
+              <div className="ios-glass-pill rounded-2xl p-3 sm:p-3.5 flex items-center gap-3 border border-white/80 shadow-xs hover:shadow-md transition-all hover:scale-[1.01]">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0 shadow-xs">
+                  <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
-                <div className="text-left">
-                  <span className="text-xs font-bold text-slate-900 block leading-tight">Expert Faculty</span>
-                  <span className="text-[10px] text-slate-500 font-medium">Class 1–12 & Entrances</span>
-                </div>
-              </div>
-
-              <div className="ios-glass-pill rounded-2xl p-3 sm:p-3.5 flex items-center gap-3 border border-white/80 shadow-xs hover:shadow-md transition-all hover:scale-[1.02]">
-                <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 shadow-xs">
-                  <Building2 className="w-5 h-5" />
-                </div>
-                <div className="text-left">
-                  <span className="text-xs font-bold text-slate-900 block leading-tight">Fully Air-Conditioned</span>
-                  <span className="text-[10px] text-slate-500 font-medium">Modern Audio-Visual Setup</span>
+                <div className="text-left min-w-0">
+                  <span className="text-xs font-bold text-slate-900 block leading-tight truncate">Expert Faculty</span>
+                  <span className="text-[10px] text-slate-500 font-medium truncate block">Class 1–12 & Entrances</span>
                 </div>
               </div>
 
-              <div className="ios-glass-pill rounded-2xl p-3 sm:p-3.5 flex items-center gap-3 border border-white/80 shadow-xs hover:shadow-md transition-all hover:scale-[1.02]">
-                <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0 shadow-xs">
-                  <Award className="w-5 h-5" />
+              <div className="ios-glass-pill rounded-2xl p-3 sm:p-3.5 flex items-center gap-3 border border-white/80 shadow-xs hover:shadow-md transition-all hover:scale-[1.01]">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 shadow-xs">
+                  <Building2 className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
-                <div className="text-left">
-                  <span className="text-xs font-bold text-slate-900 block leading-tight">Small Batch Focus</span>
-                  <span className="text-[10px] text-slate-500 font-medium">Individual Attention</span>
+                <div className="text-left min-w-0">
+                  <span className="text-xs font-bold text-slate-900 block leading-tight truncate">Fully Air-Conditioned</span>
+                  <span className="text-[10px] text-slate-500 font-medium truncate block">Modern AV Setup</span>
+                </div>
+              </div>
+
+              <div className="ios-glass-pill rounded-2xl p-3 sm:p-3.5 flex items-center gap-3 border border-white/80 shadow-xs hover:shadow-md transition-all hover:scale-[1.01]">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0 shadow-xs">
+                  <Award className="w-4 h-4 sm:w-5 sm:h-5" />
+                </div>
+                <div className="text-left min-w-0">
+                  <span className="text-xs font-bold text-slate-900 block leading-tight truncate">Small Batch Focus</span>
+                  <span className="text-[10px] text-slate-500 font-medium truncate block">Individual Attention</span>
                 </div>
               </div>
             </div>
@@ -225,17 +224,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           {/* ========================================================================= */}
           {/* Right Column: APPLE PRO / iOS FROSTED GLASS SHOWCASE                      */}
           {/* ========================================================================= */}
-          <div className="lg:col-span-5 relative">
+          <div className="lg:col-span-5 relative w-full">
             <div
-              className="relative mx-auto max-w-md lg:max-w-none"
+              className="relative mx-auto max-w-md lg:max-w-none w-full"
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
             >
               {/* Outer Apple Pro Glass Frame */}
-              <div className="ios-glass-card p-3 sm:p-4 rounded-[36px] shadow-2xl relative">
+              <div className="ios-glass-card p-2 sm:p-3.5 rounded-[26px] sm:rounded-[36px] shadow-xl sm:shadow-2xl relative w-full">
                 
                 {/* Inner Screen Bezel */}
-                <div className="relative rounded-[26px] overflow-hidden bg-slate-950 aspect-4/3 group shadow-inner border border-black/10">
+                <div className="relative rounded-[20px] sm:rounded-[26px] overflow-hidden bg-slate-950 aspect-4/3 group shadow-inner border border-black/10">
                   
                   {/* Slides with Crossfade & Ken-Burns Zoom */}
                   {heroSlides.map((slide, index) => {
@@ -324,19 +323,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
 
               {/* Floating iOS Lock Screen Widget: 333+ Toppers (animate-float-slow) */}
-              <div className="absolute -top-5 -right-5 sm:-top-7 sm:-right-7 ios-glass rounded-[24px] p-3.5 sm:p-4 shadow-2xl border border-white/90 flex items-center gap-3.5 z-20 animate-float-slow">
-                <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-red-500 via-rose-600 to-red-600 text-white flex items-center justify-center font-bold shadow-md shadow-red-500/25 flex-shrink-0">
-                  <Award className="w-5 h-5" />
+              <div className="absolute top-2.5 right-2.5 sm:-top-5 sm:-right-5 lg:-top-7 lg:-right-7 ios-glass rounded-2xl sm:rounded-[24px] p-2 sm:p-4 shadow-xl sm:shadow-2xl border border-white/90 flex items-center gap-2 sm:gap-3.5 z-20 animate-float-slow max-w-[85%]">
+                <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-gradient-to-br from-red-500 via-rose-600 to-red-600 text-white flex items-center justify-center font-bold shadow-md shadow-red-500/25 flex-shrink-0">
+                  <Award className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 <div>
-                  <div className="text-xl font-black text-slate-900 leading-none tracking-tight">333+</div>
-                  <div className="text-[11px] font-semibold text-slate-500 mt-0.5">Toppers Produced</div>
+                  <div className="text-base sm:text-xl font-black text-slate-900 leading-none tracking-tight">333+</div>
+                  <div className="text-[10px] sm:text-[11px] font-semibold text-slate-500 mt-0.5">Toppers Produced</div>
                 </div>
               </div>
 
               {/* Floating iOS Photos Widget: Secondary Classroom Badge (animate-float-reverse) */}
-              <div className="absolute -bottom-6 -left-6 sm:-bottom-8 sm:-left-8 w-48 sm:w-56 ios-glass rounded-[24px] p-2 sm:p-2.5 shadow-2xl border border-white/90 hidden sm:block z-20 animate-float-reverse">
-                <div className="rounded-2xl overflow-hidden aspect-video border border-slate-100 bg-slate-200">
+              <div className="hidden sm:block absolute sm:-bottom-6 sm:-left-4 lg:-bottom-8 lg:-left-8 w-44 sm:w-56 ios-glass rounded-2xl sm:rounded-[24px] p-2 sm:p-2.5 shadow-xl sm:shadow-2xl border border-white/90 z-20 animate-float-reverse">
+                <div className="rounded-xl sm:rounded-2xl overflow-hidden aspect-video border border-slate-100 bg-slate-200">
                   <img
                     src="/assets/institute/CR -4.jpeg"
                     alt="Ideal Career Institute Batch Session"
@@ -344,8 +343,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   />
                 </div>
                 <div className="pt-2 px-1 text-center">
-                  <span className="text-[11px] font-extrabold text-slate-900 block leading-tight">Interactive Mentorship</span>
-                  <span className="text-[10px] text-slate-500 font-medium">Madangir Campus</span>
+                  <span className="text-[10px] sm:text-[11px] font-extrabold text-slate-900 block leading-tight truncate">Interactive Mentorship</span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-500 font-medium truncate block">Madangir Campus</span>
                 </div>
               </div>
 
