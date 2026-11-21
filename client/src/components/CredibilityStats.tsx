@@ -10,6 +10,45 @@ interface StatsProps {
   };
 }
 
+const AnimatedCounter: React.FC<{
+  target: number;
+  duration?: number;
+  isVisible: boolean;
+}> = ({ target, duration = 1500, isVisible }) => {
+  const [count, setCount] = useState<number>(1);
+
+  useEffect(() => {
+    if (!isVisible) return;
+    let startTime: number | null = null;
+    let animationFrameId: number;
+
+    const startVal = 1;
+    const endVal = target;
+
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Fast start with smooth cubic deceleration
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(startVal + (endVal - startVal) * easeOut);
+      setCount(current);
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(step);
+      } else {
+        setCount(endVal);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isVisible, target, duration]);
+
+  return <>{count}</>;
+};
+
 export const CredibilityStats: React.FC<StatsProps> = ({ stats }) => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -21,7 +60,7 @@ export const CredibilityStats: React.FC<StatsProps> = ({ stats }) => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
     if (sectionRef.current) {
@@ -34,7 +73,8 @@ export const CredibilityStats: React.FC<StatsProps> = ({ stats }) => {
   const statItems = [
     {
       label: 'Established Year',
-      value: stats?.established || '1999',
+      target: parseInt(stats?.established || '1999', 10) || 1999,
+      duration: 1600,
       subtext: 'Over 25 years of educational commitment',
       icon: Calendar,
       color: 'text-blue-600',
@@ -42,8 +82,9 @@ export const CredibilityStats: React.FC<StatsProps> = ({ stats }) => {
     },
     {
       label: 'Verified Toppers',
-      value: stats?.toppers || '333',
+      target: parseInt(stats?.toppers || '333', 10) || 333,
       suffix: '+',
+      duration: 1300,
       subtext: 'Consistent top ranks in boards & entrance',
       icon: Award,
       color: 'text-amber-600',
@@ -51,8 +92,9 @@ export const CredibilityStats: React.FC<StatsProps> = ({ stats }) => {
     },
     {
       label: 'Happy Students',
-      value: stats?.students || '1000',
+      target: parseInt(stats?.students || '1000', 10) || 1000,
       suffix: '+',
+      duration: 1500,
       subtext: 'Nurtured across school and competitive courses',
       icon: GraduationCap,
       color: 'text-emerald-600',
@@ -60,8 +102,9 @@ export const CredibilityStats: React.FC<StatsProps> = ({ stats }) => {
     },
     {
       label: 'Satisfied Parents',
-      value: stats?.parents || '500',
+      target: parseInt(stats?.parents || '500', 10) || 500,
       suffix: '+',
+      duration: 1400,
       subtext: 'Trusting our mentorship and discipline',
       icon: HeartHandshake,
       color: 'text-red-600',
@@ -83,8 +126,9 @@ export const CredibilityStats: React.FC<StatsProps> = ({ stats }) => {
                 <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl ${item.bg} ${item.color} flex items-center justify-center mb-3 shadow-xs group-hover:scale-110 transition-transform duration-300`}>
                   <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight font-outfit group-hover:text-red-600 transition-colors">
-                  {item.value}{item.suffix || ''}
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight font-outfit group-hover:text-red-600 transition-colors tabular-nums">
+                  <AnimatedCounter target={item.target} duration={item.duration} isVisible={isVisible} />
+                  {item.suffix || ''}
                 </div>
                 <div className="text-xs sm:text-sm font-bold text-slate-800 mt-1">
                   {item.label}

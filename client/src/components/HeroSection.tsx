@@ -24,6 +24,32 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   // Cinematic Slideshow State
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [topperCount, setTopperCount] = useState(1);
+
+  // Animate 333+ count on hero mount
+  useEffect(() => {
+    let startTime: number | null = null;
+    let animationFrameId: number;
+    const duration = 1200;
+    const target = 333;
+
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      setTopperCount(Math.floor(1 + (target - 1) * easeOut));
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(step);
+      } else {
+        setTopperCount(target);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
 
   const heroSlides = [
     {
@@ -327,7 +353,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   <Award className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 <div>
-                  <div className="text-base sm:text-xl font-bold text-slate-900 leading-none tracking-tight font-outfit">333+</div>
+                  <div className="text-base sm:text-xl font-bold text-slate-900 leading-none tracking-tight font-outfit tabular-nums">{topperCount}+</div>
                   <div className="text-[10px] sm:text-[11px] font-semibold text-slate-500 mt-0.5">Toppers Produced</div>
                 </div>
               </div>
