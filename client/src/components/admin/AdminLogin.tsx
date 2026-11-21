@@ -195,7 +195,16 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onBackToWebsite }) => {
       </div>
 
       <div className="mt-8 text-center text-xs text-slate-500">
-        Technology Partner: <span className="font-semibold text-slate-400">AlgoForce AI</span> • Ideal Career Institute
+        Technology Partner:{' '}
+        <a
+          href="https://algoforceaii.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold text-slate-400 hover:text-amber-400 transition-colors"
+        >
+          AlgoForce AI (algoforceaii.com)
+        </a>{' '}
+        • Ideal Career Institute
       </div>
     </div>
   );

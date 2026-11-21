@@ -33,7 +33,7 @@ const AnimatedCounter: React.FC<{
       // Fast start with smooth cubic deceleration
       const easeOut = 1 - Math.pow(1 - progress, 3);
       const current = Math.floor(startVal + (endVal - startVal) * easeOut);
-      setCount(current);
+      setCount((prev) => (prev !== current ? current : prev));
 
       if (progress < 1) {
         animationFrameId = requestAnimationFrame(step);

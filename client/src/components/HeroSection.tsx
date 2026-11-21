@@ -38,7 +38,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       const elapsed = timestamp - startTime;
       const progress = Math.min(elapsed / duration, 1);
       const easeOut = 1 - Math.pow(1 - progress, 3);
-      setTopperCount(Math.floor(1 + (target - 1) * easeOut));
+      const current = Math.floor(1 + (target - 1) * easeOut);
+      setTopperCount((prev) => (prev !== current ? current : prev));
 
       if (progress < 1) {
         animationFrameId = requestAnimationFrame(step);
@@ -170,7 +171,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           
           {/* Left Column: Heading & Value Proposition in iOS Frosted Glass Panel */}
-          <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left w-full ios-glass p-6 sm:p-8 md:p-10 rounded-[28px] sm:rounded-[36px] shadow-2xl border border-white/80 backdrop-blur-2xl relative z-10">
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left w-full ios-glass p-5 sm:p-8 md:p-10 rounded-3xl sm:rounded-[36px] shadow-2xl border border-white/80 backdrop-blur-2xl relative z-10">
             
             {/* iOS Dynamic Island Status Capsule */}
             <div className="inline-flex items-center gap-2 sm:gap-2.5 px-3.5 sm:px-4 py-1.5 rounded-full ios-glass-dark text-white text-[11px] sm:text-xs md:text-sm font-semibold tracking-wide shadow-lg border border-white/20 max-w-full">

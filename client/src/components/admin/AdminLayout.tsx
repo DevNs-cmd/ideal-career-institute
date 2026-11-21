@@ -170,8 +170,15 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
           {/* Footer inside sidebar */}
           <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 text-[11px] space-y-1">
             <div className="text-slate-400 font-semibold">Technology Partner</div>
-            <div className="text-white font-bold">AlgoForce AI Platform</div>
-            <div className="text-[10px] text-slate-500">v2.0 • Madangir Campus</div>
+            <a
+              href="https://algoforceaii.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white font-bold hover:text-amber-400 transition-colors block"
+            >
+              AlgoForce AI Platform
+            </a>
+            <div className="text-[10px] text-slate-500">algoforceaii.com • Madangir Campus</div>
           </div>
         </aside>
 

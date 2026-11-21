@@ -280,9 +280,17 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-slate-400 flex items-center gap-1.5">
+            <span className="text-slate-400 flex items-center gap-1.5 text-xs">
               <span>Technology Partner:</span>
-              <strong className="text-slate-200 font-semibold">AlgoForce AI</strong>
+              <a
+                href="https://algoforceaii.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-200 font-semibold hover:text-amber-400 transition-colors inline-flex items-center gap-1 group"
+              >
+                <span>AlgoForce AI</span>
+                <span className="text-[11px] text-slate-500 group-hover:text-amber-400 font-normal hidden sm:inline">(algoforceaii.com)</span>
+              </a>
             </span>
             <button
               onClick={scrollToTop}
