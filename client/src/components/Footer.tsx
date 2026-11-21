@@ -40,8 +40,8 @@ export const Footer: React.FC<FooterProps> = ({
                 <span className="text-lg font-bold text-white tracking-tight leading-tight block">
                   IDEAL CAREER <span className="text-red-500">INSTITUTE</span>
                 </span>
-                <span className="text-xs text-slate-400 block tracking-wider">
-                  <span className="font-editorial italic font-medium text-slate-300">Excellence in Education</span> • <span className="font-cursive text-amber-400 text-sm font-bold">Since 1999</span>
+                <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest block">
+                  Excellence in Education Since 1999
                 </span>
               </div>
             </div>

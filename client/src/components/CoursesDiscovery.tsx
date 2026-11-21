@@ -64,8 +64,8 @@ export const CoursesDiscovery: React.FC<CoursesDiscoveryProps> = ({
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full ios-glass-pill text-red-600 text-xs font-bold tracking-wider uppercase mb-3 shadow-xs border border-red-100">
             <Sparkles className="w-3.5 h-3.5" /> Academic Offerings
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
-            Comprehensive <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-rose-600">Course Programs</span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight font-outfit">
+            Comprehensive <span className="text-red-600">Course Programs</span>
           </h2>
           <div className="w-16 h-1 bg-red-600 mx-auto mt-4 rounded-full" />
           <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
@@ -109,7 +109,7 @@ export const CoursesDiscovery: React.FC<CoursesDiscoveryProps> = ({
           {filteredCourses.map((course) => (
             <div
               key={course.id}
-              className="bg-white rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between overflow-hidden group"
+              className="bg-white rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-2xl hover:border-red-500/30 transition-all duration-300 transform hover:-translate-y-2 flex flex-col justify-between overflow-hidden group"
             >
               <div className="p-6 sm:p-7">
                 {/* Category Pill & Icon */}

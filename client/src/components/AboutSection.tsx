@@ -11,11 +11,8 @@ export const AboutSection: React.FC = () => {
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold tracking-wider uppercase mb-3">
             <Sparkles className="w-3.5 h-3.5" /> Institutional Heritage
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight">
-            <span className="font-sans-modern font-black">Welcome to </span>
-            <span className="font-editorial font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-rose-600 pr-1">
-              Ideal Career Institute
-            </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight font-outfit">
+            Welcome to <span className="text-red-600">Ideal Career Institute</span>
           </h2>
           <div className="w-20 h-1 bg-red-600 mx-auto mt-4 rounded-full" />
         </div>
@@ -83,34 +80,34 @@ export const AboutSection: React.FC = () => {
 
             {/* Key Pillars */}
             <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs flex items-start gap-3">
-                <Target className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+              <div className="ios-glass p-4 sm:p-5 rounded-2xl border border-white/80 shadow-xs flex items-start gap-3 hover:-translate-y-1.5 hover:shadow-xl hover:border-slate-300 transition-all duration-300 cursor-default group">
+                <Target className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">Personalized Guidance</h4>
+                  <h4 className="text-sm font-bold text-slate-900 group-hover:text-red-600 transition-colors">Personalized Guidance</h4>
                   <p className="text-xs text-slate-500 mt-0.5">Faculty addresses individual doubts and conceptual gaps.</p>
                 </div>
               </div>
 
-              <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs flex items-start gap-3">
-                <Building className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+              <div className="ios-glass p-4 sm:p-5 rounded-2xl border border-white/80 shadow-xs flex items-start gap-3 hover:-translate-y-1.5 hover:shadow-xl hover:border-slate-300 transition-all duration-300 cursor-default group">
+                <Building className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">Modern Infrastructure</h4>
+                  <h4 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Modern Infrastructure</h4>
                   <p className="text-xs text-slate-500 mt-0.5">Fully air-conditioned classrooms in Madangir, New Delhi.</p>
                 </div>
               </div>
 
-              <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs flex items-start gap-3">
-                <BookOpen className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+              <div className="ios-glass p-4 sm:p-5 rounded-2xl border border-white/80 shadow-xs flex items-start gap-3 hover:-translate-y-1.5 hover:shadow-xl hover:border-slate-300 transition-all duration-300 cursor-default group">
+                <BookOpen className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">Comprehensive Curriculum</h4>
+                  <h4 className="text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Comprehensive Curriculum</h4>
                   <p className="text-xs text-slate-500 mt-0.5">From Class 1–12 School Boards to JEE, NEET & CUET.</p>
                 </div>
               </div>
 
-              <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs flex items-start gap-3">
-                <Award className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+              <div className="ios-glass p-4 sm:p-5 rounded-2xl border border-white/80 shadow-xs flex items-start gap-3 hover:-translate-y-1.5 hover:shadow-xl hover:border-slate-300 transition-all duration-300 cursor-default group">
+                <Award className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900">Verified Results</h4>
+                  <h4 className="text-sm font-bold text-slate-900 group-hover:text-amber-600 transition-colors">Verified Results</h4>
                   <p className="text-xs text-slate-500 mt-0.5">333+ documented toppers since establishment in 1999.</p>
                 </div>
               </div>

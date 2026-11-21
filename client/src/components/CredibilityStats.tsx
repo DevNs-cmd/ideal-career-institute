@@ -70,7 +70,7 @@ export const CredibilityStats: React.FC<StatsProps> = ({ stats }) => {
   ];
 
   return (
-    <section ref={sectionRef} className="py-10 sm:py-12 bg-white border-y border-slate-200/80 shadow-xs">
+    <section ref={sectionRef} className="py-10 sm:py-14 bg-gradient-to-b from-slate-50 via-white to-slate-50 border-y border-slate-200/80 shadow-xs">
       <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
           {statItems.map((item, idx) => {
@@ -78,12 +78,12 @@ export const CredibilityStats: React.FC<StatsProps> = ({ stats }) => {
             return (
               <div
                 key={idx}
-                className="flex flex-col items-center sm:items-start text-center sm:text-left p-3 sm:p-4 rounded-2xl hover:bg-slate-50 transition-colors"
+                className="flex flex-col items-center sm:items-start text-center sm:text-left p-4 sm:p-6 rounded-2xl sm:rounded-3xl ios-glass hover:-translate-y-2 hover:shadow-xl transition-all duration-300 border border-white/80 shadow-xs group cursor-default"
               >
-                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl ${item.bg} ${item.color} flex items-center justify-center mb-2.5 shadow-xs`}>
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl ${item.bg} ${item.color} flex items-center justify-center mb-3 shadow-xs group-hover:scale-110 transition-transform duration-300`}>
                   <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight font-display">
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight font-outfit group-hover:text-red-600 transition-colors">
                   {item.value}{item.suffix || ''}
                 </div>
                 <div className="text-xs sm:text-sm font-bold text-slate-800 mt-1">

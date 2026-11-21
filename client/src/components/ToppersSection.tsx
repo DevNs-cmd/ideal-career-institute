@@ -38,11 +38,8 @@ export const ToppersSection: React.FC<ToppersSectionProps> = ({ toppers }) => {
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold tracking-wider uppercase mb-3">
             <Sparkles className="w-3.5 h-3.5 text-amber-600" /> Proven Student Success
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight">
-            <span className="font-sans-modern font-black">Our Hall of </span>
-            <span className="font-editorial font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-rose-600 pr-1">
-              Toppers
-            </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight font-outfit">
+            Our Hall of <span className="text-red-600">Toppers</span>
           </h2>
           <div className="w-20 h-1 bg-red-600 mx-auto mt-4 rounded-full" />
           <p className="mt-4 text-base text-slate-600 leading-relaxed">
@@ -56,14 +53,14 @@ export const ToppersSection: React.FC<ToppersSectionProps> = ({ toppers }) => {
             <div
               key={topper.id || idx}
               onClick={() => setSelectedTopperIndex(idx)}
-              className="group relative bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5 cursor-pointer overflow-hidden flex flex-col"
+              className="group relative bg-white rounded-3xl border border-slate-200/90 shadow-xs hover:shadow-2xl hover:border-amber-300/80 transition-all duration-300 transform hover:-translate-y-2 cursor-pointer overflow-hidden flex flex-col"
             >
               {/* Image Frame with Professional Background */}
               <div className="relative w-full aspect-square bg-gradient-to-b from-slate-100 to-slate-200/70 p-4 flex items-center justify-center overflow-hidden">
                 <img
                   src={topper.image_url}
                   alt={topper.student_name}
-                  className="w-full h-full object-contain filter drop-shadow-md group-hover:scale-108 transition-transform duration-300"
+                  className="w-full h-full object-contain filter drop-shadow-md group-hover:scale-110 transition-transform duration-500"
                   loading="lazy"
                   onError={(e) => {
                     // Fallback avatar icon
@@ -78,9 +75,9 @@ export const ToppersSection: React.FC<ToppersSectionProps> = ({ toppers }) => {
                   </div>
                 </div>
 
-                {/* Achievement Badge */}
-                <div className="absolute top-2.5 right-2.5 bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs flex items-center gap-1">
-                  <Award className="w-3 h-3" />
+                {/* Achievement Badge with Shimmer Sweep */}
+                <div className="absolute top-2.5 right-2.5 bg-amber-500 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1 animate-shimmer">
+                  <Award className="w-3 h-3 text-amber-100" />
                   <span>Topper</span>
                 </div>
               </div>

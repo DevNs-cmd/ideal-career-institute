@@ -23,11 +23,8 @@ export const FacultySection: React.FC<FacultySectionProps> = ({ faculty }) => {
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold tracking-wider uppercase mb-3">
             <Sparkles className="w-3.5 h-3.5 text-blue-600" /> Academic Leadership
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight">
-            <span className="font-sans-modern font-black">Meet Our Founder & </span>
-            <span className="font-editorial font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-rose-600 pr-1">
-              Expert Educators
-            </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight font-outfit">
+            Meet Our Founder & <span className="text-red-600">Expert Educators</span>
           </h2>
           <div className="w-20 h-1 bg-red-600 mx-auto mt-4 rounded-full" />
           <p className="mt-4 text-base text-slate-600 leading-relaxed">

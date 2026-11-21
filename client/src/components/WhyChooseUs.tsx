@@ -54,11 +54,8 @@ export const WhyChooseUs: React.FC = () => {
           <span className="text-xs font-bold uppercase tracking-widest text-red-600 block mb-2">
             Why Ideal Career Institute
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight">
-            <span className="font-sans-modern font-black">Building Strong Foundations for </span>
-            <span className="font-editorial font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-rose-600 pr-1">
-              Lifetime Academic Success
-            </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight font-outfit">
+            Building Strong Foundations for <span className="text-red-600">Lifetime Success</span>
           </h2>
           <p className="mt-4 text-base text-slate-600 leading-relaxed">
             Discover why students and parents across Delhi have entrusted their academic futures to Ideal Career Institute since 1999.

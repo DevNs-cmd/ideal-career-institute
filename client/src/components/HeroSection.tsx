@@ -92,46 +92,45 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       className="relative pt-24 pb-12 sm:pt-28 sm:pb-16 md:pt-36 md:pb-28 bg-gradient-to-b from-slate-100/80 via-white to-slate-100/60 overflow-hidden w-full max-w-full"
     >
       {/* ========================================================================= */}
-      {/* 1. BACKGROUND MOVING PHOTO WATERMARK REEL (Frosted Depth Under Glass)     */}
+      {/* 1. BACKGROUND MOVING PHOTO WATERMARK REEL (High-Visibility Animated Canvas)*/}
       {/* ========================================================================= */}
-      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden max-w-full w-full opacity-[0.14] sm:opacity-[0.20]">
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden max-w-full w-full opacity-80 sm:opacity-85 z-0">
         {/* Row 1: Drifting Left */}
-        <div className="absolute top-6 left-0 flex animate-marquee-left gap-4 sm:gap-6 -rotate-2 transform scale-105">
+        <div className="absolute top-2 left-0 flex animate-marquee-left gap-4 sm:gap-6 -rotate-2 transform scale-105">
           {[...marqueePhotosRow1, ...marqueePhotosRow1].map((src, i) => (
             <div
               key={`row1-${i}`}
-              className="w-48 sm:w-80 h-32 sm:h-48 rounded-2xl sm:rounded-3xl overflow-hidden flex-shrink-0 shadow-sm border border-white/60 bg-slate-300"
+              className="w-60 sm:w-88 h-40 sm:h-52 rounded-2xl sm:rounded-3xl overflow-hidden flex-shrink-0 shadow-lg border-2 border-white/90 bg-slate-200"
             >
               <img
                 src={src}
                 alt="Ideal Career Institute Ambient Scene"
-                className="w-full h-full object-cover filter grayscale contrast-115"
-                loading="lazy"
+                className="w-full h-full object-cover contrast-105 saturate-110"
+                loading="eager"
               />
             </div>
           ))}
         </div>
 
         {/* Row 2: Drifting Right */}
-        <div className="absolute -bottom-8 left-0 flex animate-marquee-right gap-4 sm:gap-6 -rotate-2 transform scale-105">
+        <div className="absolute -bottom-4 left-0 flex animate-marquee-right gap-4 sm:gap-6 -rotate-2 transform scale-105">
           {[...marqueePhotosRow2, ...marqueePhotosRow2].map((src, i) => (
             <div
               key={`row2-${i}`}
-              className="w-48 sm:w-80 h-32 sm:h-48 rounded-2xl sm:rounded-3xl overflow-hidden flex-shrink-0 shadow-sm border border-white/60 bg-slate-300"
+              className="w-60 sm:w-88 h-40 sm:h-52 rounded-2xl sm:rounded-3xl overflow-hidden flex-shrink-0 shadow-lg border-2 border-white/90 bg-slate-200"
             >
               <img
                 src={src}
                 alt="Ideal Career Institute Ambient Scene"
-                className="w-full h-full object-cover filter grayscale contrast-115"
-                loading="lazy"
+                className="w-full h-full object-cover contrast-105 saturate-110"
+                loading="eager"
               />
             </div>
           ))}
         </div>
 
-        {/* iOS Frosted Ambient Glass Overlay Masks */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-50/95 via-slate-50/85 to-slate-50/70 backdrop-blur-[1px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/80 via-transparent to-slate-50" />
+        {/* Soft Ambient Blend Mask - Keeps moving photos clearly visible */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-100/35 via-transparent to-slate-100/50" />
       </div>
 
       {/* Decorative iOS Ambient Glow Spheres */}
@@ -144,8 +143,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           
-          {/* Left Column: Heading & Value Proposition */}
-          <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left w-full">
+          {/* Left Column: Heading & Value Proposition in iOS Frosted Glass Panel */}
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left w-full ios-glass p-6 sm:p-8 md:p-10 rounded-[28px] sm:rounded-[36px] shadow-2xl border border-white/80 backdrop-blur-2xl relative z-10">
             
             {/* iOS Dynamic Island Status Capsule */}
             <div className="inline-flex items-center gap-2 sm:gap-2.5 px-3.5 sm:px-4 py-1.5 rounded-full ios-glass-dark text-white text-[11px] sm:text-xs md:text-sm font-semibold tracking-wide shadow-lg border border-white/20 max-w-full">
@@ -155,10 +154,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <span className="font-cursive text-amber-300 text-sm sm:text-base font-bold hidden xs:inline">Since 1999</span>
             </div>
 
-            {/* Editorial Main Heading with Apple/Ivy Typography Pairing */}
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-slate-900 tracking-tight leading-[1.12] sm:leading-[1.08] break-words">
-              <span className="font-black font-sans-modern">Igniting Minds,</span> <br className="hidden sm:block" />
-              <span className="font-editorial font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-rose-600 to-red-600 pr-1 inline-block">
+            {/* Editorial Main Heading - Sleek, Stylish, Professional (Not overly bold) */}
+            <h1 className="font-outfit text-3xl sm:text-4xl md:text-5xl lg:text-[48px] xl:text-[54px] font-semibold tracking-tight leading-[1.16] text-slate-900 break-words">
+              Igniting Minds,<br className="hidden sm:block" />
+              <span className="text-red-600 font-bold block sm:inline mt-1 sm:mt-0">
                 Illuminating Futures.
               </span>
             </h1>
@@ -172,7 +171,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 sm:gap-4 w-full sm:w-auto">
               <button
                 onClick={onExploreCourses}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-2xl font-bold text-white ios-glass-dark hover:bg-slate-900 shadow-xl border border-white/20 ios-glass-interactive cursor-pointer text-sm sm:text-base"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-2xl font-bold text-white ios-glass-dark hover:bg-slate-900 shadow-xl border border-white/20 ios-glass-interactive cursor-pointer text-sm sm:text-base transition-transform hover:scale-[1.02]"
               >
                 <span>Explore Our Courses</span>
                 <BookOpen className="w-4 h-4 text-amber-400" />
@@ -180,7 +179,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
               <button
                 onClick={() => onOpenEnquiry()}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-2xl font-bold text-slate-900 ios-glass-pill hover:bg-white shadow-md border border-white/90 ios-glass-interactive cursor-pointer text-sm sm:text-base"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-2xl font-bold text-slate-900 ios-glass-pill hover:bg-white shadow-md border border-white/90 ios-glass-interactive cursor-pointer text-sm sm:text-base transition-transform hover:scale-[1.02]"
               >
                 <span>Enquire for Admission</span>
                 <ArrowRight className="w-4 h-4 text-red-600" />
@@ -272,10 +271,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
                           {/* Bottom iOS Frosted Glass Caption Strip */}
                           <div className="ios-glass-dark rounded-2xl p-3.5 sm:p-4 border border-white/15 shadow-xl space-y-1">
-                            <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-amber-400 block">
+                            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-amber-400 block">
                               {slide.badge}
                             </span>
-                            <h3 className="text-sm sm:text-base font-extrabold text-white leading-tight">
+                            <h3 className="text-sm sm:text-base font-bold text-white leading-tight">
                               {slide.title}
                             </h3>
                             <p className="text-[11px] text-slate-300 font-normal hidden sm:block">
@@ -328,7 +327,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   <Award className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 <div>
-                  <div className="text-base sm:text-xl font-black text-slate-900 leading-none tracking-tight">333+</div>
+                  <div className="text-base sm:text-xl font-bold text-slate-900 leading-none tracking-tight font-outfit">333+</div>
                   <div className="text-[10px] sm:text-[11px] font-semibold text-slate-500 mt-0.5">Toppers Produced</div>
                 </div>
               </div>
@@ -351,7 +350,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               {/* Floating iOS Live Activity Pill: Verified Rating */}
               <div className="absolute -bottom-3 right-6 z-20 hidden md:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full ios-glass-pill shadow-lg border border-white/90 animate-float-slow">
                 <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                <span className="text-xs font-black text-slate-800">4.9 / 5.0</span>
+                <span className="text-xs font-bold text-slate-800">4.9 / 5.0</span>
                 <span className="text-[10px] text-slate-500 font-semibold">• 500+ Parents</span>
               </div>
 

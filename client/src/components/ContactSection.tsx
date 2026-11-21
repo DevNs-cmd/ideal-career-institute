@@ -71,11 +71,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           <span className="text-xs font-bold uppercase tracking-widest text-red-600 block mb-2">
             Admissions & Assistance
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight">
-            <span className="font-sans-modern font-black">Connect With Our </span>
-            <span className="font-editorial font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-rose-600 pr-1">
-              Admission Desk
-            </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight font-outfit">
+            Connect With Our <span className="text-red-600">Admission Desk</span>
           </h2>
           <div className="w-20 h-1 bg-red-600 mx-auto mt-4 rounded-full" />
           <p className="mt-4 text-base text-slate-600 leading-relaxed">

@@ -89,11 +89,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               />
             </div>
             <div className="min-w-0">
-              <span className="text-sm sm:text-lg md:text-xl font-black tracking-tight text-slate-900 leading-tight block truncate">
+              <span className="text-sm sm:text-lg md:text-xl font-bold tracking-tight text-slate-900 leading-tight block truncate font-outfit">
                 IDEAL CAREER <span className="text-red-600">INSTITUTE</span>
               </span>
-              <span className="text-[10px] sm:text-[11px] text-slate-500 tracking-wider block truncate">
-                <span className="font-editorial italic font-semibold text-slate-600">Igniting Minds</span> • <span className="font-cursive text-red-600 font-bold text-xs sm:text-sm">Since 1999</span>
+              <span className="text-[10px] sm:text-[11px] font-semibold text-slate-500 uppercase tracking-widest block truncate">
+                Igniting Minds • Since 1999
               </span>
             </div>
           </button>

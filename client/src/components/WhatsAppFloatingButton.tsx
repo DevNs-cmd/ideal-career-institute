@@ -65,16 +65,19 @@ export const WhatsAppFloatingButton: React.FC = () => {
         </div>
       )}
 
-      {/* Main Floating Trigger Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center shadow-xl hover:shadow-2xl transition-all transform hover:scale-110 cursor-pointer group"
-        aria-label="Chat on WhatsApp"
-        title="Chat on WhatsApp"
-      >
-        <MessageCircle className="w-7 h-7" />
-        <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white animate-pulse" />
-      </button>
+      {/* Main Floating Trigger Button with Ambient Pulse Ring */}
+      <div className="relative">
+        <span className="absolute inset-0 rounded-full bg-emerald-500 opacity-60 animate-ping pointer-events-none" />
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="relative w-14 h-14 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center shadow-xl hover:shadow-2xl transition-all transform hover:scale-110 cursor-pointer group"
+          aria-label="Chat on WhatsApp"
+          title="Chat on WhatsApp"
+        >
+          <MessageCircle className="w-7 h-7" />
+          <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white animate-pulse" />
+        </button>
+      </div>
     </div>
   );
 };

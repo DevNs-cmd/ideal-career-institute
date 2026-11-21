@@ -30,11 +30,8 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-500/20 text-red-400 text-xs font-bold tracking-wider uppercase border border-red-500/30 mb-3">
             <Sparkles className="w-3.5 h-3.5" /> Authentic Parent & Student Voices
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight">
-            <span className="font-sans-modern font-black text-white">What Our Students' Parents </span>
-            <span className="font-editorial font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-rose-300 to-amber-300 pr-1">
-              Say About Us!
-            </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight font-outfit">
+            What Our Students' Parents <span className="text-red-500">Say About Us!</span>
           </h2>
           <div className="w-20 h-1 bg-red-600 mx-auto mt-4 rounded-full" />
           <p className="mt-4 text-base text-slate-300 leading-relaxed font-light">
