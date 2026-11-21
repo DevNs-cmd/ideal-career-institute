@@ -58,7 +58,7 @@ export const CoursesDiscovery: React.FC<CoursesDiscoveryProps> = ({
   return (
     <section id="courses" className="py-20 md:py-28 bg-gradient-to-b from-white via-slate-50/60 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full ios-glass-pill text-red-600 text-xs font-bold tracking-wider uppercase mb-3 shadow-xs border border-red-100">
@@ -81,11 +81,10 @@ export const CoursesDiscovery: React.FC<CoursesDiscoveryProps> = ({
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 flex-shrink-0 cursor-pointer ${
-                  selectedCategory === cat
+                className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 flex-shrink-0 cursor-pointer ${selectedCategory === cat
                     ? 'bg-white text-slate-900 shadow-md scale-[1.02]'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
-                }`}
+                  }`}
               >
                 {cat}
               </button>

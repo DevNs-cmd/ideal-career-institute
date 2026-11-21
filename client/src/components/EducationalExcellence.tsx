@@ -17,8 +17,11 @@ export const EducationalExcellence: React.FC = () => {
               <Sparkles className="w-3.5 h-3.5" /> Pedagogy & Methodology
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
-              Excellence in Education for a <span className="text-red-500">Bright Future</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight">
+              <span className="font-sans-modern font-black text-white">Excellence in Education for a </span>
+              <span className="font-editorial font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-rose-300 to-amber-300 pr-1">
+                Bright Future
+              </span>
             </h2>
 
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-light">

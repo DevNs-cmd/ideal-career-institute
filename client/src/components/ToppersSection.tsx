@@ -38,8 +38,11 @@ export const ToppersSection: React.FC<ToppersSectionProps> = ({ toppers }) => {
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold tracking-wider uppercase mb-3">
             <Sparkles className="w-3.5 h-3.5 text-amber-600" /> Proven Student Success
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
-            Our Hall of <span className="text-red-600">Toppers</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-slate-900 tracking-tight">
+            <span className="font-sans-modern font-black">Our Hall of </span>
+            <span className="font-editorial font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-rose-600 pr-1">
+              Toppers
+            </span>
           </h2>
           <div className="w-20 h-1 bg-red-600 mx-auto mt-4 rounded-full" />
           <p className="mt-4 text-base text-slate-600 leading-relaxed">

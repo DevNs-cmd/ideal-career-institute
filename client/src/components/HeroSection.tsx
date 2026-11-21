@@ -148,17 +148,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left w-full">
             
             {/* iOS Dynamic Island Status Capsule */}
-            <div className="inline-flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-1.5 rounded-full ios-glass-dark text-white text-[11px] sm:text-xs md:text-sm font-semibold tracking-wide shadow-lg border border-white/20 max-w-full">
+            <div className="inline-flex items-center gap-2 sm:gap-2.5 px-3.5 sm:px-4 py-1.5 rounded-full ios-glass-dark text-white text-[11px] sm:text-xs md:text-sm font-semibold tracking-wide shadow-lg border border-white/20 max-w-full">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-sm shadow-red-500 flex-shrink-0" />
-              <span className="truncate">Excellence in Education Since 1999</span>
+              <span className="truncate">Excellence in Education</span>
               <span className="text-white/30 hidden xs:inline">•</span>
-              <span className="text-amber-300 font-bold hidden xs:inline">25+ Years Legacy</span>
+              <span className="font-cursive text-amber-300 text-sm sm:text-base font-bold hidden xs:inline">Since 1999</span>
             </div>
 
-            {/* Editorial Main Heading with iOS Typography Weight */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.14] sm:leading-[1.10] break-words">
-              Igniting Minds, <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-rose-600 to-red-700">
+            {/* Editorial Main Heading with Apple/Ivy Typography Pairing */}
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-slate-900 tracking-tight leading-[1.12] sm:leading-[1.08] break-words">
+              <span className="font-black font-sans-modern">Igniting Minds,</span> <br className="hidden sm:block" />
+              <span className="font-editorial font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-rose-600 to-red-600 pr-1 inline-block">
                 Illuminating Futures.
               </span>
             </h1>
