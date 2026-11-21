@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { api, Course, Faculty, Topper, Branch, GalleryItem, Testimonial } from './lib/api';
+import {
+  INITIAL_COURSES,
+  INITIAL_GALLERY,
+  INITIAL_FACULTY,
+  INITIAL_TOPPERS,
+  INITIAL_BRANCHES,
+  INITIAL_SETTINGS
+} from './lib/initialData';
 
 // Public Components
 import { Navbar } from './components/Navbar';
@@ -50,13 +58,13 @@ const MainApp: React.FC = () => {
   const [adminTab, setAdminTab] = useState<string>('overview');
   const [activeSection, setActiveSection] = useState<string>('home');
 
-  // Data states
-  const [settings, setSettings] = useState<Record<string, string>>({});
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [faculty, setFaculty] = useState<Faculty[]>([]);
-  const [toppers, setToppers] = useState<Topper[]>([]);
-  const [branches, setBranches] = useState<Branch[]>([]);
-  const [gallery, setGallery] = useState<GalleryItem[]>([]);
+  // Data states with guaranteed instant institutional defaults
+  const [settings, setSettings] = useState<Record<string, string>>(INITIAL_SETTINGS);
+  const [courses, setCourses] = useState<Course[]>(INITIAL_COURSES);
+  const [faculty, setFaculty] = useState<Faculty[]>(INITIAL_FACULTY);
+  const [toppers, setToppers] = useState<Topper[]>(INITIAL_TOPPERS);
+  const [branches, setBranches] = useState<Branch[]>(INITIAL_BRANCHES);
+  const [gallery, setGallery] = useState<GalleryItem[]>(INITIAL_GALLERY);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
 
   // Modals state
@@ -80,7 +88,7 @@ const MainApp: React.FC = () => {
 
   const loadInitialData = async () => {
     try {
-      const [s, c, f, t, b, g, test] = await Promise.all([
+      const results = await Promise.allSettled([
         api.getSettings(),
         api.getCourses(),
         api.getFaculty(),
@@ -89,15 +97,16 @@ const MainApp: React.FC = () => {
         api.getGallery(),
         api.getTestimonials()
       ]);
-      setSettings(s);
-      setCourses(c);
-      setFaculty(f);
-      setToppers(t);
-      setBranches(b);
-      setGallery(g);
-      setTestimonials(test);
+
+      if (results[0].status === 'fulfilled' && Object.keys(results[0].value).length > 0) setSettings(results[0].value);
+      if (results[1].status === 'fulfilled' && results[1].value?.length > 0) setCourses(results[1].value);
+      if (results[2].status === 'fulfilled' && results[2].value?.length > 0) setFaculty(results[2].value);
+      if (results[3].status === 'fulfilled' && results[3].value?.length > 0) setToppers(results[3].value);
+      if (results[4].status === 'fulfilled' && results[4].value?.length > 0) setBranches(results[4].value);
+      if (results[5].status === 'fulfilled' && results[5].value?.length > 0) setGallery(results[5].value);
+      if (results[6].status === 'fulfilled') setTestimonials(results[6].value || []);
     } catch (err) {
-      console.error('Failed to load initial website data:', err);
+      console.warn('Initial data sync notice:', err);
     }
   };
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MapPin, Phone, Clock, Mail, MessageCircle, Send, CheckCircle2, ArrowRight } from 'lucide-react';
 import { Branch, Course } from '../lib/api';
+import { INITIAL_COURSES, INITIAL_BRANCHES } from '../lib/initialData';
 
 interface ContactSectionProps {
   branches: Branch[];
@@ -13,15 +14,18 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   courses,
   onSubmitEnquiry
 }) => {
-  const [selectedBranchId, setSelectedBranchId] = useState<number>(branches[0]?.id || 1);
-  const activeBranch = branches.find((b) => b.id === selectedBranchId) || branches[0];
+  const effectiveBranches = (branches && branches.length > 0) ? branches : INITIAL_BRANCHES;
+  const effectiveCourses = (courses && courses.length > 0) ? courses : INITIAL_COURSES;
+
+  const [selectedBranchId, setSelectedBranchId] = useState<number>(effectiveBranches[0]?.id || 1);
+  const activeBranch = effectiveBranches.find((b) => b.id === selectedBranchId) || effectiveBranches[0];
 
   const [formData, setFormData] = useState({
     student_name: '',
     phone: '',
     email: '',
     current_class: 'Class 10',
-    course_id: courses[0]?.id || 1,
+    course_id: effectiveCourses[0]?.id || 1,
     contact_method: 'phone',
     message: ''
   });
@@ -61,7 +65,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   return (
     <section id="contact" className="py-20 md:py-28 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-bold uppercase tracking-widest text-red-600 block mb-2">
@@ -77,10 +81,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          
+
           {/* Left Column: Contact Cards & Campus Location */}
           <div className="lg:col-span-5 space-y-6">
-            
+
             {/* Campus Branch Picker if multiple branches are verified */}
             {branches.length > 1 && (
               <div className="bg-white p-2 rounded-2xl border border-slate-200 flex gap-2">
@@ -88,11 +92,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   <button
                     key={b.id}
                     onClick={() => setSelectedBranchId(b.id)}
-                    className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all ${
-                      selectedBranchId === b.id
+                    className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all ${selectedBranchId === b.id
                         ? 'bg-slate-900 text-white shadow-xs'
                         : 'text-slate-600 hover:bg-slate-100'
-                    }`}
+                      }`}
                   >
                     {b.name}
                   </button>
@@ -200,7 +203,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           </div>
 
           {/* Right Column: Complete Student Admission Enquiry Form */}
-          <div className="lg:col-span-7 bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/90 shadow-xl">
+          <div className="lg:col-span-7 bg-white rounded-3xl p-5 sm:p-8 lg:p-10 border border-slate-200/90 shadow-xl" style={{}}>
+
             <div className="mb-8">
               <span className="text-xs font-bold uppercase tracking-wider text-red-600 block mb-1">
                 Direct Submission
@@ -267,7 +271,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       placeholder="e.g. Rahul Sharma"
                       value={formData.student_name}
                       onChange={(e) => setFormData({ ...formData, student_name: e.target.value })}
-                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
                   </div>
 
@@ -275,10 +279,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     <label className="block text-xs font-bold text-slate-700 mb-1.5">
                       Mobile Number (10 Digits) <span className="text-red-500">*</span>
                     </label>
-                    <div className="relative">
-                      <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">
-                        +91
-                      </span>
+                    <div className="flex border border-slate-200 rounded-xl overflow-hidden bg-slate-50 focus-within:ring-2 focus-within:ring-red-500">
+                      <span className="px-3 py-2.5 text-sm font-bold text-slate-500 bg-slate-100 border-r border-slate-200 flex items-center flex-shrink-0">+91</span>
                       <input
                         type="tel"
                         required
@@ -286,7 +288,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                         placeholder="7011667297"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, '') })}
-                        className="w-full pl-12 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                        className="flex-1 min-w-0 px-3 py-2.5 bg-transparent text-base focus:outline-none"
                       />
                     </div>
                   </div>
@@ -302,7 +304,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                       placeholder="name@example.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
                     />
                   </div>
 
@@ -313,7 +315,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     <select
                       value={formData.current_class}
                       onChange={(e) => setFormData({ ...formData, current_class: e.target.value })}
-                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                       <option value="Class 1–5">Class 1–5 (Primary)</option>
                       <option value="Class 6–8">Class 6–8 (Middle)</option>
@@ -335,9 +337,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     <select
                       value={formData.course_id}
                       onChange={(e) => setFormData({ ...formData, course_id: Number(e.target.value) })}
-                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
-                      {courses.map((c) => (
+                      {effectiveCourses.map((c) => (
                         <option key={c.id} value={c.id}>
                           {c.title}
                         </option>
@@ -352,7 +354,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     <select
                       value={formData.contact_method}
                       onChange={(e) => setFormData({ ...formData, contact_method: e.target.value })}
-                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
                     >
                       <option value="phone">Phone Call</option>
                       <option value="whatsapp">WhatsApp Message</option>
@@ -370,7 +372,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     placeholder="Tell us about preferred batch timings or subjects..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                    className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-base focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500"
                   />
                 </div>
 

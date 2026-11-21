@@ -1,6 +1,7 @@
 import React from 'react';
 import { Award, Sparkles, GraduationCap } from 'lucide-react';
 import { Faculty } from '../lib/api';
+import { INITIAL_FACULTY } from '../lib/initialData';
 import { LinkedInIcon, TwitterIcon } from './SocialIcons';
 
 interface FacultySectionProps {
@@ -8,9 +9,10 @@ interface FacultySectionProps {
 }
 
 export const FacultySection: React.FC<FacultySectionProps> = ({ faculty }) => {
+  const effectiveFaculty = (faculty && faculty.length > 0) ? faculty : INITIAL_FACULTY;
   // Founder is typically order_index = 1 or Mr. Vibhor Gupta
-  const founder = faculty.find((f) => f.name.includes('Vibhor')) || faculty[0];
-  const teachingStaff = faculty.filter((f) => f.id !== founder?.id);
+  const founder = effectiveFaculty.find((f) => f.name.includes('Vibhor')) || effectiveFaculty[0];
+  const teachingStaff = effectiveFaculty.filter((f) => f.id !== founder?.id);
 
   return (
     <section id="faculty" className="py-20 md:py-28 bg-white">

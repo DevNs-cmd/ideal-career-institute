@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Award, ChevronLeft, ChevronRight, X, ZoomIn, Sparkles } from 'lucide-react';
 import { Topper } from '../lib/api';
+import { INITIAL_TOPPERS } from '../lib/initialData';
 
 interface ToppersSectionProps {
   toppers: Topper[];
@@ -9,22 +10,24 @@ interface ToppersSectionProps {
 export const ToppersSection: React.FC<ToppersSectionProps> = ({ toppers }) => {
   const [selectedTopperIndex, setSelectedTopperIndex] = useState<number | null>(null);
 
+  const effectiveToppers = (toppers && toppers.length > 0) ? toppers : INITIAL_TOPPERS;
+
   // Keyboard navigation for Lightbox
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (selectedTopperIndex === null) return;
       if (e.key === 'Escape') setSelectedTopperIndex(null);
       if (e.key === 'ArrowRight') {
-        setSelectedTopperIndex((prev) => (prev !== null ? (prev + 1) % toppers.length : 0));
+        setSelectedTopperIndex((prev) => (prev !== null ? (prev + 1) % effectiveToppers.length : 0));
       }
       if (e.key === 'ArrowLeft') {
-        setSelectedTopperIndex((prev) => (prev !== null ? (prev - 1 + toppers.length) % toppers.length : 0));
+        setSelectedTopperIndex((prev) => (prev !== null ? (prev - 1 + effectiveToppers.length) % effectiveToppers.length : 0));
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedTopperIndex, toppers.length]);
+  }, [selectedTopperIndex, effectiveToppers.length]);
 
   return (
     <section id="results" className="py-20 md:py-28 bg-gradient-to-b from-white via-slate-50 to-white">
@@ -46,7 +49,7 @@ export const ToppersSection: React.FC<ToppersSectionProps> = ({ toppers }) => {
 
         {/* Toppers Responsive Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
-          {toppers.map((topper, idx) => (
+          {effectiveToppers.map((topper, idx) => (
             <div
               key={topper.id || idx}
               onClick={() => setSelectedTopperIndex(idx)}
@@ -105,13 +108,13 @@ export const ToppersSection: React.FC<ToppersSectionProps> = ({ toppers }) => {
       </div>
 
       {/* Accessible Lightbox Modal */}
-      {selectedTopperIndex !== null && toppers[selectedTopperIndex] && (
+      {selectedTopperIndex !== null && effectiveToppers[selectedTopperIndex] && (
         <div
-          className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 animate-in fade-in duration-200"
           onClick={() => setSelectedTopperIndex(null)}
         >
           <div
-            className="relative max-w-xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100"
+            className="relative w-full max-w-[min(560px,calc(100vw-1.5rem))] bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-100 mx-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -126,7 +129,7 @@ export const ToppersSection: React.FC<ToppersSectionProps> = ({ toppers }) => {
             {/* Navigation Buttons */}
             <button
               onClick={() =>
-                setSelectedTopperIndex((prev) => (prev !== null ? (prev - 1 + toppers.length) % toppers.length : 0))
+                setSelectedTopperIndex((prev) => (prev !== null ? (prev - 1 + effectiveToppers.length) % effectiveToppers.length : 0))
               }
               className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/90 hover:bg-white text-slate-900 shadow-lg flex items-center justify-center transition-all cursor-pointer"
               aria-label="Previous Topper"
@@ -136,7 +139,7 @@ export const ToppersSection: React.FC<ToppersSectionProps> = ({ toppers }) => {
 
             <button
               onClick={() =>
-                setSelectedTopperIndex((prev) => (prev !== null ? (prev + 1) % toppers.length : 0))
+                setSelectedTopperIndex((prev) => (prev !== null ? (prev + 1) % effectiveToppers.length : 0))
               }
               className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/90 hover:bg-white text-slate-900 shadow-lg flex items-center justify-center transition-all cursor-pointer"
               aria-label="Next Topper"
@@ -147,8 +150,8 @@ export const ToppersSection: React.FC<ToppersSectionProps> = ({ toppers }) => {
             {/* Modal Image */}
             <div className="w-full aspect-4/3 bg-gradient-to-b from-slate-100 to-slate-200 p-8 flex items-center justify-center">
               <img
-                src={toppers[selectedTopperIndex].image_url}
-                alt={toppers[selectedTopperIndex].student_name}
+                src={effectiveToppers[selectedTopperIndex].image_url}
+                alt={effectiveToppers[selectedTopperIndex].student_name}
                 className="max-h-full max-w-full object-contain filter drop-shadow-xl"
               />
             </div>
@@ -159,16 +162,16 @@ export const ToppersSection: React.FC<ToppersSectionProps> = ({ toppers }) => {
                 <Award className="w-3.5 h-3.5" /> Ideal Career Institute Achiever
               </div>
               <h3 className="text-2xl font-extrabold text-slate-900">
-                {toppers[selectedTopperIndex].student_name}
+                {effectiveToppers[selectedTopperIndex].student_name}
               </h3>
               <p className="text-sm font-semibold text-slate-600 mt-1">
-                {toppers[selectedTopperIndex].exam_or_class}
+                {effectiveToppers[selectedTopperIndex].exam_or_class}
               </p>
               <div className="mt-2 text-xs font-bold text-red-600 uppercase tracking-wider">
-                {toppers[selectedTopperIndex].score_or_rank} • {toppers[selectedTopperIndex].year}
+                {effectiveToppers[selectedTopperIndex].score_or_rank} • {effectiveToppers[selectedTopperIndex].year}
               </div>
               <div className="mt-4 text-xs text-slate-400">
-                {selectedTopperIndex + 1} of {toppers.length} Toppers • Use Left / Right arrows to navigate
+                {selectedTopperIndex + 1} of {effectiveToppers.length} Toppers • Use Left / Right arrows to navigate
               </div>
             </div>
           </div>
