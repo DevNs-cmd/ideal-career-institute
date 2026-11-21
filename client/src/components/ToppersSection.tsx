@@ -34,7 +34,7 @@ export const ToppersSection: React.FC<ToppersSectionProps> = ({ toppers }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold tracking-wider uppercase mb-3">
             <Sparkles className="w-3.5 h-3.5 text-amber-600" /> Proven Student Success
           </div>
@@ -42,66 +42,82 @@ export const ToppersSection: React.FC<ToppersSectionProps> = ({ toppers }) => {
             Our Hall of <span className="text-red-600">Toppers</span>
           </h2>
           <div className="w-20 h-1 bg-red-600 mx-auto mt-4 rounded-full" />
-          <p className="mt-4 text-base text-slate-600 leading-relaxed">
+          <p className="mt-4 text-base text-slate-600 leading-relaxed font-normal">
             Celebrating the academic excellence, hard work, and achievements of our standout students guided by Ideal Career Institute faculty.
           </p>
+          <div className="inline-flex items-center gap-2 mt-4 px-3.5 py-1.5 rounded-full bg-slate-100/90 text-slate-600 text-xs font-medium border border-slate-200/80">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Interactive Horizontal Showcase • Auto-Gliding • Hover to Pause</span>
+          </div>
         </div>
 
-        {/* Toppers Responsive Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
-          {effectiveToppers.map((topper, idx) => (
-            <div
-              key={topper.id || idx}
-              onClick={() => setSelectedTopperIndex(idx)}
-              className="group relative bg-white rounded-3xl border border-slate-200/90 shadow-xs hover:shadow-2xl hover:border-amber-300/80 transition-all duration-300 transform hover:-translate-y-2 cursor-pointer overflow-hidden flex flex-col"
-            >
-              {/* Image Frame with Professional Background */}
-              <div className="relative w-full aspect-square bg-gradient-to-b from-slate-100 to-slate-200/70 p-4 flex items-center justify-center overflow-hidden">
-                <img
-                  src={topper.image_url}
-                  alt={topper.student_name}
-                  className="w-full h-full object-contain filter drop-shadow-md group-hover:scale-110 transition-transform duration-500"
-                  loading="lazy"
-                  onError={(e) => {
-                    // Fallback avatar icon
-                    (e.target as HTMLElement).style.display = 'none';
-                  }}
-                />
-                
-                {/* Overlay Zoom Icon on hover */}
-                <div className="absolute inset-0 bg-slate-950/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <div className="w-10 h-10 rounded-full bg-white/90 text-slate-900 flex items-center justify-center shadow-md">
-                    <ZoomIn className="w-5 h-5" />
+        {/* Horizontal Sliding Showcase Reel */}
+        <div className="relative w-full overflow-hidden py-4">
+          {/* Left and Right Ambient Frosted Vignette Masks */}
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 sm:w-24 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 sm:w-24 bg-gradient-to-l from-white via-white/80 to-transparent z-10" />
+
+          {/* Continuous Sliding Marquee Track */}
+          <div
+            className="flex gap-4 sm:gap-6 animate-marquee-left select-none"
+            style={{ animationDuration: '48s' }}
+          >
+            {[...effectiveToppers, ...effectiveToppers].map((topper, idx) => {
+              const originalIdx = idx % effectiveToppers.length;
+              return (
+                <div
+                  key={`${topper.id || originalIdx}-${idx}`}
+                  onClick={() => setSelectedTopperIndex(originalIdx)}
+                  className="w-56 sm:w-64 flex-shrink-0 group relative bg-white rounded-3xl border border-slate-200/90 shadow-xs hover:shadow-2xl hover:border-amber-400/80 transition-all duration-300 transform hover:-translate-y-2 cursor-pointer overflow-hidden flex flex-col"
+                >
+                  {/* Image Frame with Professional Background */}
+                  <div className="relative w-full aspect-square bg-gradient-to-b from-slate-50 to-slate-100 p-4 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={topper.image_url}
+                      alt={topper.student_name}
+                      className="w-full h-full object-contain filter drop-shadow-md group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
+                      onError={(e) => {
+                        (e.target as HTMLElement).style.display = 'none';
+                      }}
+                    />
+                    
+                    {/* Overlay Zoom Icon on hover */}
+                    <div className="absolute inset-0 bg-slate-950/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full bg-white/90 text-slate-900 flex items-center justify-center shadow-md">
+                        <ZoomIn className="w-5 h-5" />
+                      </div>
+                    </div>
+
+                    {/* Achievement Badge with Shimmer Sweep */}
+                    <div className="absolute top-2.5 right-2.5 bg-amber-500 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1 animate-shimmer">
+                      <Award className="w-3 h-3 text-amber-100" />
+                      <span>Topper</span>
+                    </div>
+                  </div>
+
+                  {/* Details */}
+                  <div className="p-4 text-center flex-1 flex flex-col justify-center bg-white border-t border-slate-100">
+                    <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors line-clamp-1 font-outfit">
+                      {topper.student_name}
+                    </h3>
+                    <span className="text-[11px] font-semibold text-slate-500 block mt-0.5 line-clamp-1">
+                      {topper.exam_or_class}
+                    </span>
+                    <span className="text-xs text-red-600 font-bold block mt-1">
+                      {topper.score_or_rank}
+                    </span>
                   </div>
                 </div>
-
-                {/* Achievement Badge with Shimmer Sweep */}
-                <div className="absolute top-2.5 right-2.5 bg-amber-500 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1 animate-shimmer">
-                  <Award className="w-3 h-3 text-amber-100" />
-                  <span>Topper</span>
-                </div>
-              </div>
-
-              {/* Details */}
-              <div className="p-3.5 text-center flex-1 flex flex-col justify-center bg-white border-t border-slate-100">
-                <h3 className="text-sm font-bold text-slate-900 group-hover:text-red-600 transition-colors line-clamp-1">
-                  {topper.student_name}
-                </h3>
-                <span className="text-[11px] font-semibold text-slate-500 block mt-0.5 line-clamp-1">
-                  {topper.exam_or_class}
-                </span>
-                <span className="text-[10px] text-red-600 font-bold block mt-0.5">
-                  {topper.score_or_rank}
-                </span>
-              </div>
-            </div>
-          ))}
+              );
+            })}
+          </div>
         </div>
 
         {/* View All & Modal Note */}
-        <div className="text-center mt-12">
+        <div className="text-center mt-8">
           <p className="text-xs text-slate-500">
-            * Displaying authentic alumni and topper records from Ideal Career Institute. Click on any student profile to view expanded portrait.
+            * 15 Documented Topper records from Ideal Career Institute. Click any student profile to open certificate and exam details.
           </p>
         </div>
 
